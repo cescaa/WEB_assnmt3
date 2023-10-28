@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LEGO COLLECTION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<link rel="stylesheet" href="/css/styles.css" /> -->
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+
+    /
+    <!-- ~~~~~~~~~~~~
+      NOTE: I know it says to add this in the assignment brief, but it looked ugly IMO so I removed it.
+
+    <div
+      class="w-[150px] h-[80px] shadow-2xl bg-white rounded-lg flex justify-center items-center"
+    ></div> -->
+
+    <!-- OLD NAV / draft
+              <p class="text-center">shadow-2xl</p>
+      <nav>
+        <ul>
+          <li><a href="/">Lego Collection</a></li>
+          <li><a href="/about">About</a></li>
+          <li>
+            <label for="themeDrop">Themes</label>
+            <select id="themeDrop">
+              <option value="/lego/sets?theme=someTheme">someTheme</option>
+              <option value="/lego/sets?theme=someTheme">someTheme</option>
+              <option value="/lego/sets?theme=someTheme">someTheme</option>
+            </select>
+          </li>
+        </ul>
+      </nav> -->
+
+    <div class="navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl" href="/">Lego Collection</a>
+      </div>
+
+      <div class="dropdown hidden">
+        <label tabindex="0" class="btn btn-ghost sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a href="/about">About</a></li>
+          <li>
+            <details>
+              <summary>Themes</summary>
+              <ul class="p-2 bg-base-100 right-0">
+                <li><a href="/lego/sets?theme=supp">Supplemental</a></li>
+                <li><a href="/lego/sets?theme=tech">Technic</a></li>
+                <li><a href="/lego/sets?theme=creato">Creator</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+      <!-- RESPONSIVE VERSION ABOVE: https://webprogrammingtoolsandframeworks.sdds.ca/UI-Toolkits/tailwind-css-daisyui-->
+      <div class="navbar-center hidden sm:flex"></div>
+      
+        <ul class="menu menu-horizontal px-1">
+          <li><a href="/about">About</a></li>
+          <li>
+            <details>
+              <summary>Themes</summary>
+              <ul class="p-2 bg-base-100 right-0">
+                <li><a href="/lego/sets?theme=supp">Supplemental</a></li>
+                <li><a href="/lego/sets?theme=tech">Technic</a></li>
+                <li><a href="/lego/sets?theme=creato">Creator</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container mx-auto">
+      <div id= "hero" class="my-20 py-20 px-10 bg-base-100 text-center">
+        <h1 class="text-8xl my-4">Explore the collection now.</h1>
+        <a href="/lego/sets" class="btn btn-primary my-4">Le'go to lego</a>
+    </div>
+    <!--<button class="btn btn-primary">Button</button>-->
+
+    <div id= "cardGrid" class="my-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+      <!-- DESCRIPTIONS FOR EACH SET FOUND HERE:  hRps://rebrickable.com/sets/-->
+      <!-- set 1-->
+      <div class="p-4 bg-white shadow-lg rounded-lg">
+        <h2 class="text-xl font-bold mt-4">Gears</h2>
+        <p class="text-base-600">This set was released in America (USA/CAN) by Samsonite in 1965. It was re-released in 1969 as an educational set (322-4). It was never released in Europe.</p>
+        <a href="/lego/sets/001-1" class="btn btn-primary mt-4 flex justify-center items-center">See Set</a>
+      </div>
+    
+      <!-- set 2-->
+      <div class="p-4 bg-white shadow-lg rounded-lg">
+        <h2 class="text-xl font-bold mt-4">Town Mini-Figures</h2>
+        <p class="text-base-600">There are 3 Minifigs in this inventory, with 3 total quantity.</p>
+        <a href="/lego/sets/0011-2" class="btn btn-primary flex mt-4 justify-center items-center">See Set</a>
+      </div>
+    
+      <!--  set 3-->
+      <div class="p-4 bg-white shadow-lg rounded-lg">
+        <h2 class="text-xl font-bold mt-4">Castle 2 for 1 Bonus Offer</h2>
+        <p class="text-base-600">I have always admired the original Guarded Inn as well as its remake in 2001.
+          Recently, I found my old 7946 King's Castle and thought I should give it a try to buld my own version of it.</p>
+        <a href="/lego/sets/0011-3" class="btn btn-primary flex mt-4 justify-center items-center mt-4">See Set</a>
+      </div>
+    </div>
+    <script>
+      // source / class notes: https://webprogrammingtoolsandframeworks.sdds.ca/Web-API-Overview/ajax-review
+
+      // fetch api
+        fetch("/lego/sets") // route for carData in server.js
+          .then((response) => response.json())
+          .then((legoSetData) => {
+            const cardGrid = document.getElementById('cardGrid');
+            const cards = cardGrid.querySelectorAll(".p-4");
+          //  const buttons = cardGrid.querySelectorAll(".btn");
+            if (legoSetData) { // only loop thru first 3 elems
+              //let i = 0;
+              legoSetData.slice(0, 3).forEach((elem, i) => {
+                const setPic = document.createElement('img');
+                setPic.src = elem.img_url;
+                setPic.className = 'w-full object-contain';
+                //cards[i].appendChild(setPic);
+                cards[i].insertBefore(setPic, cards[i].firstChild);
+                i++;
+              });
+            }
+
+          })
+          .catch((err) => {
+            console.error("Erorr:", err);
+
+            
+          });
+    
+          // BUTTONS
+
+          
+    </script>
+  </body>
+</html>
