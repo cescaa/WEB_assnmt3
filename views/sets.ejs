@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <%- include('partials/navbar', {page: '/lego/sets'}) %>
+    <!-- source: https://webprogrammingtoolsandframeworks.sdds.ca/Template-Engines/ejs-embedded-javaScript-templates#iterating-over-collections -->
+    <div class="container mx-auto mt-4">
+      <h1 class="text-8xl my-4">Collection</h1>
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <!-- make table -->
+            <th class="py-4 px-6 border-b">image</th>
+            <th class="py-4 px-6 border-b">name</th>
+            <th class="py-4 px-6 border-b">theme</th>
+            <th class="py-4 px-6 border-b">year</th>
+            <th class="py-4 px-6 border-b">number of parts</th>
+            <th class="py-4 px-6 border-b">details</th>
+          </tr>
+        </thead>
+        <!-- <% data.forEach(user=>{ %> -->
+        <tbody>
+          <!-- loop thru sets, access each set -->
+          <% sets.forEach(set => { %>
+          <tr>
+            <td class="py-4 px-6 border-b">
+              <img
+                src="<%= set.img_url %>"
+                alt="<%= set.name %>"
+                class="w-48 h-48"
+              />
+            </td>
+            <td class="py-4 px-6 border-b"><%= set.name %></td>
+            <td class="py-4 px-6 border-b">
+              <a
+                href="/lego/sets?theme=<%= set.theme %>"
+                class="btn btn-sm btn-primary"
+                ><%= set.theme %></a
+              >
+            </td>
+            <td class="py-4 px-6 border-b"><%= set.year %></td>
+            <td class="py-4 px-6 border-b"><%= set.num_parts %></td>
+            <td class="py-4 px-6 border-b">
+              <a
+                href="/lego/sets/<%= set.set_num %>"
+                class="btn btn-sm btn-primary"
+                >Details</a
+              >
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
